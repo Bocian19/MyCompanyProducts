@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+<html>
+<head>
+{% block head %}
+    {% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock %}
+    <title>{% block title %} My company website {% endblock %}</title>
+{% endblock %}
+</head>
+<body>
+    <div id="header" style="display: inline">
+    <img class="logo" src="{% static "wedding_products/logo.png" %}" alt="logo"/>
+    </div>
+    {% block content %}
+    <h3>Proszę się zalogować</h3>
+    <div class="form">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Wyślij">
+        </form>
+    </div>
+    <div>
+    {% if response %}
+    {{ response }}
+    {% endif %}
+    </div>
+
+    {% endblock %}
+
+<div id="footer" >
+{% block footer %}
+    <footer>
+© Copyright 2020 by <a href="">Łukasz Bocian</a>.
+    </footer>
+{% endblock %}
+</div>
+</body>
+</html>

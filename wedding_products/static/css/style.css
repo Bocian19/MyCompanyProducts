@@ -1,0 +1,34 @@
+
+footer {
+    background-color: #d4c1a9;
+    display:block;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    text-align: center;
+}
+
+.logo {
+    padding-left: 1%;
+    padding-top: 1%;
+    max-height: 7%;
+    max-width: 9%;
+}
+
+.welcome_text {
+    text-align: center;
+    font-family: cursive Roundband;
+}
+
+div.form
+{
+    display: block;
+    text-align: center;
+}
+form {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
