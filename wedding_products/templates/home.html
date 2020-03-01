@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block buttons %}
+<div class="container" style="padding-top: 2%">
+    </div>
+     <nav class="navbar navbar-expand-sm" style="background-color: #d4c1a9; border-radius: 15px">
+        <ul class="navbar-nav">
+            <li class="nav-link">
+                <a class="nav-link" href="{% url 'products' %}" role="button">Produkty</a>
+            </li>
+            <li class="nav-link">
+                <a class="nav-link" href="{% url 'visits' %}" role="button">Wizyty</a>
+            </li>
+            <li class="nav-link">
+                <a class="nav-link" href="{% url 'categories' %}" role="button">Kategorie</a>
+            </li>
+        {% block search %}
+            <li class="nav-link">
+                <form method="post" name="Product-search" action="{% url 'products' %}">
+                    <label for="product_name"></label>
+                        {% csrf_token %}
+                        <input id="product_name" name="product_name" type="text" placeholder="Wpisz nazwę">
+                    <button type="submit">Szukaj</button>
+                </form>
+            </li>
+            {% endblock %}
+            <li class="nav-link">
+            {% if user.is_authenticated %}
+                Zalogowany jako: {{ user.username }} <a href={% url 'user-logout' %}>Wyloguj się</a>
+             {% else %}
+                Niezalogowany
+            {% endif %}
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}
+{% block content %}
+    <div style="margin: 2% auto">
+    <h4 style="font-weight: bold">Witaj {{ user.username }} :)</h4>
+    </div>
+{% endblock %}
+</div>

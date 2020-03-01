@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'home.html' %}
+{% block search %}
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+<table class="table table-sm">
+     <thead class="thead-dark">
+     <tr style="text-align: center">
+    <th>Nazwa kategorii</th><th>Dostępna ilość produktów</th>
+     </tr>
+     </thead>
+  {% for category in categories %}
+    <tbody style="text-align: center">
+        <tr style="height: 30px; "><td> {{ category.name }}</td><td>{{ category.product_set.count }}</td>
+            </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% if user.is_superuser %}
+    <div>
+        <a class="btn btn-success btn-xs" role="button" href="{% url 'add-category' %}">Dodaj kategorię</a></div>
+</div>
+    {% endif %}
+{% endblock %}

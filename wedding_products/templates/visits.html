@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'home.html' %}
+{% block search %}
+     <li class="nav-link">
+                <form method="post" name="Visit-search" action="{% url 'visits' %}">
+                    <label for="visit_date"></label>
+                        {% csrf_token %}
+                        <input id="visit_date" name="visit_date" type="text" placeholder="Wpisz datę RRRR-MM-DD">
+                    <button type="submit">Szukaj</button>
+                </form>
+            </li>
+    {% endblock %}
+{% block content %}
+<div class="container-fluid">
+<table class="table table-sm">
+     <thead class="thead-dark">
+     <tr style="text-align: center">
+    <th>Imię</th><th>Nazwisko</th><th>Numer telefonu</th><th>Data i godzina wizyty</th><th></th><th></th>
+     </tr>
+     </thead>
+  {% for visit in visits %}
+    <tbody style="text-align: center">
+        <tr style="height: 30px; "><td> {{ visit.first_name }}</td><td>{{ visit.last_name }}</td><td>{{ visit.telephone_number }}</td><td>{{ visit.visit_date }}</td>
+            <td><a class="btn btn-primary btn-sm" href="/update_visits/{{ visit.id }}" role="button">Edytuj wizytę</a></td>
+            <td><a class="btn btn-danger btn-sm" href="/delete_visits/{{ visit.id }}" role="button">Usuń wiztę</a></td>
+            </tr>
+    {% endfor %}
+    </tbody>
+</table>
+        <a class="btn btn-success btn-xs" role="button" href="{% url 'add-visits' %}">Dodaj wizytę</a></div>
+</div>
+{% endblock %}

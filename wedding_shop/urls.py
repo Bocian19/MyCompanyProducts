@@ -15,7 +15,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from wedding_products.views import LoginView, HomeView, UserLogoutView, ProductsView, ProductCreate, ProductDelete, ProductUpdate, CategoryCreate, \
+    create_csv, VisitsView, VisitCreate, VisitUpdate, VisitDelete, CategoriesView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('login/', LoginView.as_view(), name='login'),
+    path('home/', HomeView.as_view(), name='home'),
+    path('logout/', UserLogoutView.as_view(), name='user-logout'),
+    path('products/', ProductsView.as_view(), name='products'),
+    path('categories/', CategoriesView.as_view(), name='categories'),
+    path('add_product/', ProductCreate.as_view(), name='add-product'),
+    path('add_category/', CategoryCreate.as_view(), name='add-category'),
+    path('delete_product/<pk>', ProductDelete.as_view(), name='delete-product'),
+    path('update_product/<pk>', ProductUpdate.as_view(), name='update-product'),
+    path('create-csv/', create_csv, name='create-csv'),
+    path('visits/', VisitsView.as_view(), name='visits'),
+    path('add_visit/', VisitCreate.as_view(), name='add-visits'),
+    path('update_visits/<pk>', VisitUpdate.as_view(), name='update-visits'),
+    path('delete_visits/<pk>', VisitDelete.as_view(), name='delete-visits'),
+
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

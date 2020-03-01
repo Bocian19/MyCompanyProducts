@@ -11,33 +11,36 @@
     <title>{% block title %} My company website {% endblock %}</title>
 {% endblock %}
 </head>
+
 <body>
-    <div id="header" style="display: inline">
-    <img class="logo" src="{% static "wedding_products/logo.png" %}" alt="logo"/>
-    </div>
-    {% block content %}
-    <h3>Proszę się zalogować</h3>
+{% block logo %}
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+            <img class="logo" src="{% static "wedding_products/logo.png" %}" alt="logo"/>
+                {% endblock %}
+                {% block buttons %}
+                {% endblock %}
+{% block content %}
+    <h4 style="padding-top: 2%; padding-bottom: 2%; font-weight: bold">Dostęp do serwisu wymaga zalogowania się :)</h4>
     <div class="form">
         <form action="" method="post">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="Wyślij">
+            <input type="submit" value="Zaloguj się">
         </form>
     </div>
+{% endblock %}
     <div>
     {% if response %}
     {{ response }}
     {% endif %}
     </div>
-
-    {% endblock %}
-
-<div id="footer" >
-{% block footer %}
-    <footer>
-© Copyright 2020 by <a href="">Łukasz Bocian</a>.
-    </footer>
-{% endblock %}
+    <div class="card-footer text-muted" style="background-color: #d4c1a9; bottom:0; border-radius: 15px">
+            © Created by <a href="https://github.com/Bocian19">Łukasz Bocian</a>
+    </div>
+            </div>
+        </div>
 </div>
 </body>
 </html>

@@ -1,10 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="container-fluid">
+{% if user.is_superuser %}
+<table class="table table-sm">
+     <thead class="thead-dark">
+     <tr>
+    <th style="text-align: center">Nazwa</th><th>Ilość</th><th>Jedn.</th><th>Opis</th><th>Cena zakupu netto/pln</th><th>Wartość sumaryczna</th>
+         <th>Cena sprzedaży netto/pln</th><th>Cena sprzedaży brutto/pln</th><th>Foto</th><th></th><th></th>
+     </tr>
+     </thead>
+    {% for product in products %}
+    <tbody style="text-align: center">
+        <tr style="height: 30px; "><td>{{ product.product_name }}</td><td>{{ product.quantity }}</td><td>{{ product.unit }}</td><td>{{ product.description }}</td>
+                <td>{{ product.cost_of_production }}</td><td>{{ product.final_cost }}</td><td>{{ product.selling_net_price }}</td><td>{{ product.price_for_the_clients|floatformat:"0"}}</td>
+            {% if product.photo %}
+            <td><img style=max-width:30%; src="{{ product.photo.url }}" class="img-thumbnail" alt="suknia">
+                {% else %}
+                <td></td>
+            {% endif %}
+            <td><a class="btn btn-primary btn-sm" href="/update_product/{{ product.id }}" role="button">Edytuj produkt</a></td>
+            <td><a class="btn btn-danger btn-sm" href="/delete_product/{{ product.id }}" role="button">Usuń produkt</a></td>
+            </tr>
+    {% endfor %}
+     </tbody>
+    <tfoot style="text-align: center; border-style: ridge">
+    <tr><th>Suma:</th><th></th><th></th><th></th><th></th><th>{{ summary.final_cost__sum }}</th><th></th><th></th><th></th><th></th><th></th></tr>
+    </tfoot>
+ </table>
+
+    <div class="font-weight-bold">
+        <a  href="{% url 'add-product' %}" class="btn btn-success btn-xs" role="button">Dodaj nowy produkt</a>
+        <a href="{% url 'create-csv' %}" class="btn btn-primary btn-xs" role="button">Stwórz remanent</a>
+    {% else %}
+
+
+    <table class="table table-sm">
+     <thead class="thead-dark">
+     <tr>
+    <th style="text-align: center">Nazwa</th><th>Ilość</th><th>Jedn.</th><th>Opis</th><th>Cena sprzedaży brutto/pln</th><th>Foto</th><th></th><th></th>
+     </tr>
+     </thead>
+    {% for product in products %}
+    <tbody style="text-align: center">
+        <tr style="height: 30px; "><td>{{ product.product_name }}</td><td>{{ product.quantity }}</td><td>{{ product.unit }}</td><td>{{ product.description }}</td>
+                <td>{{ product.price_for_the_clients|floatformat:"0"}}</td>
+            {% if product.photo %}
+            <td><img style=max-width:30%; src="{{ product.photo.url }}" class="img-thumbnail" alt="suknia">
+                {% else %}
+                <td></td>
+            {% endif %}
+    {% endfor %}
+     </tbody>
+ </table>
+{% endif %}
+</div>
+    {% endblock %}
+
