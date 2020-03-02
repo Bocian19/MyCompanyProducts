@@ -6,13 +6,13 @@
 <table class="table table-sm">
      <thead class="thead-dark">
      <tr>
-    <th style="text-align: center">Nazwa</th><th>Ilość</th><th>Jedn.</th><th>Opis</th><th>Cena zakupu netto/pln</th><th>Wartość sumaryczna</th>
+    <th style="text-align: center">Nazwa</th><th>Ilość</th><th>Jedn.</th><th>Cena zakupu netto/pln</th><th>Wartość sumaryczna</th>
          <th>Cena sprzedaży netto/pln</th><th>Cena sprzedaży brutto/pln</th><th>Foto</th><th></th><th></th>
      </tr>
      </thead>
     {% for product in products %}
     <tbody style="text-align: center">
-        <tr style="height: 30px; "><td>{{ product.product_name }}</td><td>{{ product.quantity }}</td><td>{{ product.unit }}</td><td>{{ product.description }}</td>
+        <tr style="height: 30px; "><td style="white-space: nowrap"><a href="/product/{{ product.id }}">{{ product.product_name }}</a> </td><td>{{ product.quantity }}</td><td>{{ product.unit }}</td>
                 <td>{{ product.cost_of_production }}</td><td>{{ product.final_cost }}</td><td>{{ product.selling_net_price }}</td><td>{{ product.price_for_the_clients|floatformat:"0"}}</td>
             {% if product.photo %}
             <td><img style=max-width:30%; src="{{ product.photo.url }}" class="img-thumbnail" alt="suknia">
@@ -38,12 +38,12 @@
     <table class="table table-sm">
      <thead class="thead-dark">
      <tr>
-    <th style="text-align: center">Nazwa</th><th>Ilość</th><th>Jedn.</th><th>Opis</th><th>Cena sprzedaży brutto/pln</th><th>Foto</th><th></th><th></th>
+    <th style="text-align: center">Nazwa</th><th>Ilość</th><th>Jedn.</th><th>Cena sprzedaży brutto/pln</th><th>Foto</th><th></th><th></th>
      </tr>
      </thead>
     {% for product in products %}
     <tbody style="text-align: center">
-        <tr style="height: 30px; "><td>{{ product.product_name }}</td><td>{{ product.quantity }}</td><td>{{ product.unit }}</td><td>{{ product.description }}</td>
+        <tr style="height: 30px; "><td style="white-space: nowrap">{{ product.product_name }}</td><td>{{ product.quantity }}</td><td>{{ product.unit }}</td>
                 <td>{{ product.price_for_the_clients|floatformat:"0"}}</td>
             {% if product.photo %}
             <td><img style=max-width:30%; src="{{ product.photo.url }}" class="img-thumbnail" alt="suknia">

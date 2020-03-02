@@ -70,6 +70,14 @@ class ProductsView(LoginRequiredMixin, View):
             return render(request, 'products.html', {"products": products})
 
 
+class ProductView(View):
+
+    def get(self, request, pk):
+
+        product = Product.objects.get(pk=pk)
+        return render(request, 'product.html', {"product": product})
+
+
 class ProductCreate(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Product

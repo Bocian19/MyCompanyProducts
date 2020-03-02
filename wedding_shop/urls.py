@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from wedding_products.views import LoginView, HomeView, UserLogoutView, ProductsView, ProductCreate, ProductDelete, ProductUpdate, CategoryCreate, \
-    create_csv, VisitsView, VisitCreate, VisitUpdate, VisitDelete, CategoriesView
+    create_csv, VisitsView, VisitCreate, VisitUpdate, VisitDelete, CategoriesView, ProductView
 
 
 urlpatterns = [
@@ -32,6 +32,7 @@ urlpatterns = [
     path('add_category/', CategoryCreate.as_view(), name='add-category'),
     path('delete_product/<pk>', ProductDelete.as_view(), name='delete-product'),
     path('update_product/<pk>', ProductUpdate.as_view(), name='update-product'),
+    path('product/<pk>', ProductView.as_view(), name='product'),
     path('create-csv/', create_csv, name='create-csv'),
     path('visits/', VisitsView.as_view(), name='visits'),
     path('add_visit/', VisitCreate.as_view(), name='add-visits'),

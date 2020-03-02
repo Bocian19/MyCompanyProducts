@@ -1,0 +1,19 @@
+{% extends 'home.html' %}
+{% block content %}
+    <div class="card" style="width: 18rem; alignment: center">
+  <img src="{{ product.photo.url }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.product_name }}</h5>
+    <p class="card-text">{{ product.description }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cena sprzedaży: {{ product.price_for_the_clients|floatformat:"0"}} zł brutto</li>
+    <li class="list-group-item">Ilość szt. dostępna: {{ product.quantity }}</li>
+    <li class="list-group-item">Koszt produkcji/zakupu: {{ product.cost_of_production }}</li>
+  </ul>
+  <div class="card-body">
+    <a class="btn btn-primary btn-sm" href="/update_product/{{ product.id }}" role="button">Edytuj produkt</a>
+    <a class="btn btn-danger btn-sm" href="/delete_product/{{ product.id }}" role="button">Usuń produkt</a>
+  </div>
+</div>
+{% endblock %}
