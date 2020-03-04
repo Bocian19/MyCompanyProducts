@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'wedding_products',
     'bootstrap4',
+    'tempus_dominus',
 ]
 
 MIDDLEWARE = [

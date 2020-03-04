@@ -3,6 +3,7 @@ from django.utils import timezone
 
 # Create your models here.
 from django.db.models import Sum, F
+from tempus_dominus.widgets import DatePicker
 
 
 class Category(models.Model):
@@ -65,6 +66,19 @@ class Visit(models.Model):
     class Meta:
         verbose_name = "Wizyta"
         verbose_name_plural = "Wizyty"
+
+
+class Order(models.Model):
+    height = models.FloatField(blank=True, verbose_name="Wzrost")
+    waist = models.FloatField(blank=True, verbose_name="Talia")
+    hips = models.FloatField(blank=True, verbose_name="Obwód bioder")
+    breast = models.FloatField(blank=True, verbose_name="Obwód piersi")
+    additional_info = models.CharField(max_length=200, blank=True, verbose_name="Dodatkowe informacje")
+    order_date = models.DateField(blank=True, verbose_name="Data zamówienia")
+    realization_date = models.DateField(blank=True, verbose_name="Data realizacji")
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+
+
 
 
 

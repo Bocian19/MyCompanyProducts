@@ -8,10 +8,11 @@ from django.views import View
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from tempus_dominus.widgets import DatePicker
 
 
 from .forms import LoginForm, SearchProductForm, SearchVisitForm, SearchCategoryForm
-from .models import Product, Category, Visit
+from .models import Product, Category, Visit, Order
 
 
 # Create your views here.
@@ -83,6 +84,27 @@ class ProductCreate(LoginRequiredMixin, CreateView):
     model = Product
     fields = ['product_name', 'description', 'quantity', 'unit', 'cost_of_production', 'selling_net_price','photo', 'category']
     success_url = reverse_lazy("products")
+
+
+class OrderView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    success_url = reverse_lazy('orders')
+
+    def get(self, request):
+        orders = Order.objects.all()
+        return render(request, 'orders.html', {'orders': orders})
+
+
+class OrderCreate(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    model = Order
+    success_url = reverse_lazy('orders')
+    fields = ['height', 'waist', 'hips', 'breast', 'additional_info', 'order_date', 'realization_date', 'product']
+
+    def get_form(self, form_class=None):
+        form = super(OrderCreate, self).get_form(form_class)
+        form.fields['realization_date'].widget = DatePicker()
+        return form
 
 
 class ProductDelete(LoginRequiredMixin, DeleteView):
