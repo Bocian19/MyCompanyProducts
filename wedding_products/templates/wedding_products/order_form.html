@@ -1,4 +1,5 @@
 {% extends 'home.html' %}
+<html>
   <head>
     {# Include FontAwesome; required for icon display #}
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
@@ -13,9 +14,8 @@
 {% bootstrap_css %}
   </head>
 {% block content %}
-
 <div class="container pt-5 pl-6 pr-6" style="background-color: #d4c1a9" >
-<form action="" enctype="multipart/form-data" method="post">
+<form action="" method="post">
 {% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Zapisz">

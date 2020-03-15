@@ -1,7 +1,9 @@
 {% extends 'home.html' %}
 {% block content %}
     <div class="card" style="width: 18rem; alignment: center">
+    {% if product.photo %}
   <img src="{{ product.photo.url }}" class="card-img-top" alt="...">
+        {% endif %}
   <div class="card-body">
     <h5 class="card-title">{{ product.product_name }}</h5>
     <p class="card-text">{{ product.description }}</p>

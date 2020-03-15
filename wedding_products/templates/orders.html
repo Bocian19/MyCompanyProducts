@@ -1,0 +1,33 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="container-fluid">
+{% if user.is_superuser %}
+<table class="table table-sm">
+     <thead class="thead-dark">
+     <tr>
+    <th style="text-align: center">Nazwa produktu</th><th>Obwód pasa</th><th>Obwód bioder</th><th>Obwód piersi</th><th>Dodatkowe info</th>
+         <th>Data zmówienia</th><th>Data realizacji</th><th></th><th></th>
+     </tr>
+     </thead>
+{% if orders %}
+    {% for order in orders %}
+    <tbody style="text-align: center">
+        <tr style="height: 30px; "><td style="white-space: nowrap"><a href="/product/{{ order.product_id }}">{{ order.product }}</a> </td><td>{{ order.waist }}</td><td>{{ order.hips }}</td><td>{{ order.breast }}</td>
+            <td>{{ order.additional_info }}</td><td>{{ order.order_date }}</td><td>{{ order.realization_date }}</td>
+            <td><a class="btn btn-primary btn-sm" href="/update_product/{{ order.id }}" role="button">Edytuj produkt</a></td>
+            <td><a class="btn btn-danger btn-sm" href="/delete_order/{{ order.id }}" role="button">Usuń zamówienie</a></td>
+            </tr>
+    {% endfor %}
+    {% endif %}
+     </tbody>
+    <tfoot style="text-align: center; border-style: ridge">
+    <tr><th>Suma:</th><th></th><th></th><th></th><th></th><th>{{ summary.final_cost__sum }}</th><th></th><th></th><th></th><th></th><th></th></tr>
+    </tfoot>
+ </table>
+    <div class="font-weight-bold">
+        <a  href="{% url 'add-order' %}" class="btn btn-success btn-xs" role="button">Dodaj zamówienie</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,27 +1,42 @@
 {% extends 'home.html' %}
+<head>
+{% block head %}
+    {# Include FontAwesome; required for icon display #}
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+
+    {# Include Bootstrap 4 and jQuery #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    {# Django Tempus Dominus assets are included in `{{ form.media }}` #}
+    {{ form.media }}
+      {% load bootstrap4 %}
+{% bootstrap_css %}
+    </head>
+{% endblock %}
 {% block search %}
      <li class="nav-link">
-                <form method="post" name="Visit-search" action="{% url 'visits' %}">
-                    <label for="visit_date"></label>
-                        {% csrf_token %}
-                        <input id="visit_date" name="visit_date" type="text" placeholder="Wpisz datę RRRR-MM-DD">
-                    <button type="submit">Szukaj</button>
-                </form>
-            </li>
-    {% endblock %}
+     <form action="" name="Visit-search" method="post">
+{% csrf_token %}
+{{ form }}
+         <input type="submit" value="Szukaj">
+</form>
+     </li>
+{% endblock %}
 {% block content %}
 <div class="container-fluid">
 <table class="table table-sm">
      <thead class="thead-dark">
      <tr style="text-align: center">
-    <th>Imię</th><th>Nazwisko</th><th>Numer telefonu</th><th>Data i godzina wizyty</th><th></th><th></th>
+    <th>Imię</th><th>Nazwisko</th><th>Numer telefonu</th><th>Data i godzina wizyty</th><th>ID</th><th></th>
      </tr>
      </thead>
   {% for visit in visits %}
     <tbody style="text-align: center">
-        <tr style="height: 30px; "><td> {{ visit.first_name }}</td><td>{{ visit.last_name }}</td><td>{{ visit.telephone_number }}</td><td>{{ visit.visit_date }}</td>
+        <tr style="height: 30px; "><td> {{ visit.first_name }}</td><td>{{ visit.last_name }}</td><td>{{ visit.telephone_number }}</td><td>{{ visit.visit_date }}</td><td>{{ visit.id }}</td>
             <td><a class="btn btn-primary btn-sm" href="/update_visits/{{ visit.id }}" role="button">Edytuj wizytę</a></td>
             <td><a class="btn btn-danger btn-sm" href="/delete_visits/{{ visit.id }}" role="button">Usuń wiztę</a></td>
+            <td><a class="btn btn-danger btn-sm" href="/add_order?visit_id={{ visit.id }}" role="button">Dodaj zamówienie</a></td>
             </tr>
     {% endfor %}
     </tbody>

@@ -11,16 +11,15 @@
     <title>{% block title %} My company website {% endblock %}</title>
 {% endblock %}
 </head>
-
 <body>
-{% block logo %}
+    {% block logo %}
     <div class="container">
         <div class="card">
             <div class="card-body">
             <img class="logo" src="{% static "wedding_products/logo.png" %}" alt="logo"/>
-                {% endblock %}
-                {% block buttons %}
-                {% endblock %}
+    {% endblock %}
+{% block buttons %}
+{% endblock %}
 {% block content %}
     <h4 style="padding-top: 2%; padding-bottom: 2%; font-weight: bold">Dostęp do serwisu wymaga zalogowania się :)</h4>
     <div class="form">
