@@ -1,0 +1,11 @@
+{% extends 'home.html' %}
+{% block content %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+<div class="container pt-5 pl-6 pr-6">
+<form action="" method="post">{% csrf_token %}
+    <p>Czy na pewno chcesz usunąć zamówienie z dnia "{{ object.order_date }}"?</p>
+    <button type="submit" class="btn btn-danger">Potwierdzam</button>
+</form>
+</div>
+{% endblock %}

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from wedding_shop.local_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.urls import reverse_lazy
@@ -26,9 +26,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'wedding_products',
     'bootstrap4',
+    'tempus_dominus',
 ]
 
 MIDDLEWARE = [
@@ -119,8 +120,5 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'wedding_products/static'),
-# ]
 
 LOGIN_URL = 'login/'
