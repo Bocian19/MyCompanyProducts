@@ -1,9 +1,4 @@
 from django.db import models
-from django.utils import timezone
-
-# Create your models here.
-from django.db.models import Sum, F
-from tempus_dominus.widgets import DatePicker
 
 
 class Category(models.Model):
@@ -38,9 +33,6 @@ class Product(models.Model):
     photo = models.ImageField(null=True, blank=True, upload_to='suknie', verbose_name="Fotografia")
     category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True, blank=True, verbose_name="Kategoria")
 
-    # def value_of_cost(self):
-    #     return self.quantity*self.cost_of_production
-
     def price_for_the_clients(self):
         if self.selling_net_price:
             return self.selling_net_price*1.23
@@ -57,11 +49,11 @@ class Visit(models.Model):
     first_name = models.CharField(max_length=64, blank=True, verbose_name="Imię")
     last_name = models.CharField(max_length=64, null=True, verbose_name="Nazwisko")
     telephone_number = models.CharField(max_length=15, blank=True, verbose_name="Number telefonu")
-    visit_date = models.DateTimeField(null=True, blank=True, help_text='YYYY-MM-DD HH:MM', verbose_name="Data wizyty")
+    visit_date = models.DateTimeField(null=True, blank=True, verbose_name="Data wizyty")
     visit_create_date = models.DateTimeField(auto_now_add=True, help_text='When the visit was created')
 
     def __str__(self):
-        return self.first_name, self.first_name, self.telephone_number, self.visit_date
+        return '{} {} {} {} {} {}'.format(self.id, self.first_name, self.first_name, self.telephone_number, self.visit_date, self.visit_create_date)
 
     class Meta:
         verbose_name = "Wizyta"
@@ -77,6 +69,9 @@ class Order(models.Model):
     order_date = models.DateField(blank=True, verbose_name="Data zamówienia")
     realization_date = models.DateField(blank=True, verbose_name="Data realizacji")
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    visit = models.ForeignKey(Visit, on_delete=models.PROTECT, blank=True, null=True)
+
+
 
 
 

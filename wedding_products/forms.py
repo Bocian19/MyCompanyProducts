@@ -1,4 +1,5 @@
 from django import forms
+from tempus_dominus.widgets import DatePicker
 
 
 class LoginForm(forms.Form):
@@ -11,7 +12,7 @@ class SearchProductForm(forms.Form):
 
 
 class SearchVisitForm(forms.Form):
-    visit_date = forms.CharField(label='Data wizyty')
+    visit_date = forms.DateField(widget=DatePicker(attrs={'autocomplete': 'off'}), label='')
 
 
 class SearchCategoryForm(forms.Form):

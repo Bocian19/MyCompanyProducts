@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from tempus_dominus.widgets import DatePicker
+from tempus_dominus.widgets import DatePicker, DateTimePicker
 
 
 from .forms import LoginForm, SearchProductForm, SearchVisitForm, SearchCategoryForm
@@ -95,16 +95,37 @@ class OrderView(LoginRequiredMixin, View):
         return render(request, 'orders.html', {'orders': orders})
 
 
+class OrderDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = '/login/'
+    model = Order
+    success_url = reverse_lazy('orders')
+
+
 class OrderCreate(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Order
     success_url = reverse_lazy('orders')
-    fields = ['height', 'waist', 'hips', 'breast', 'additional_info', 'order_date', 'realization_date', 'product']
+    fields = ['height', 'waist', 'hips', 'breast', 'additional_info', 'order_date', 'realization_date', 'product', 'visit']
+
+    def form_valid(self, form):
+        order = form.save(commit=False)
+        visit = Visit.objects.get(pk=self.request.GET.get("visit_id"))
+        order.visit = visit
+        order.save()
+        self.object = order
+        return super().form_valid(form)
 
     def get_form(self, form_class=None):
         form = super(OrderCreate, self).get_form(form_class)
         form.fields['realization_date'].widget = DatePicker()
         return form
+
+    def get_initial(self, *args, **kwargs):
+
+        initial = super(OrderCreate, self).get_initial()
+        initial['realization_date'] = '2020-05-02'
+
+        return initial
 
 
 class ProductDelete(LoginRequiredMixin, DeleteView):
@@ -151,9 +172,9 @@ class VisitsView(LoginRequiredMixin, View):
     login_url = '/login/'
 
     def get(self, request):
-
         visits = Visit.objects.all().order_by('visit_date')
-        return render(request, 'visits.html', {"visits": visits})
+        form = SearchVisitForm
+        return render(request, 'visits.html', {"visits": visits, "form": form})
 
     def post(self, request):
         form = SearchVisitForm(request.POST)
@@ -161,7 +182,7 @@ class VisitsView(LoginRequiredMixin, View):
             visits = Visit.objects.filter(
                 visit_date__icontains=form.cleaned_data['visit_date']
             )
-            return render(request, 'visits.html', {"visits": visits})
+            return render(request, 'visits.html', {"visits": visits, "form": form})
 
 
 class VisitCreate(LoginRequiredMixin, CreateView):
@@ -170,6 +191,12 @@ class VisitCreate(LoginRequiredMixin, CreateView):
     fields = ['first_name', 'last_name', 'telephone_number', 'visit_date']
     success_url = reverse_lazy('visits')
 
+    def get_form(self, form_class=None):
+        form = super(VisitCreate, self).get_form(form_class)
+        form.fields['visit_date'].widget = DateTimePicker(attrs={'autocomplete': 'off'})
+
+        return form
+
 
 class VisitUpdate(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
@@ -177,6 +204,12 @@ class VisitUpdate(LoginRequiredMixin, UpdateView):
     fields = ['first_name', 'last_name', 'telephone_number', 'visit_date']
     template_name_suffix = '_update_form'
     success_url = reverse_lazy("visits")
+
+    def get_form(self, form_class=None):
+        form = super(VisitUpdate, self).get_form(form_class)
+        form.fields['visit_date'].widget = DateTimePicker(attrs={'autocomplete': 'off'})
+
+        return form
 
 
 class VisitDelete(LoginRequiredMixin, DeleteView):
