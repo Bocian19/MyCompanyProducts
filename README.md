@@ -1,4 +1,4 @@
-# MyCompanyProducts
+# Django project/MyCompanyProducts
 Cel:
 Zarządzeanie salonem ślubnym.
 
