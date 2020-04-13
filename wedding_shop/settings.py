@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from wedding_shop.local_settings import *
+from .local_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.urls import reverse_lazy
@@ -30,6 +30,7 @@ DEBUG = False
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 # Application definition
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -122,3 +123,13 @@ MEDIA_URL = '/media/'
 
 
 LOGIN_URL = 'login/'
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+try:
+    from .local_settings import DATABASES, SECRET_KEY
+except ModuleNotFoundError:
+    print("Brak konfiguracji bazy danych w pliku local_settings.py!")
+    print("Uzupełnij dane i spróbuj ponownie!")
+    exit(0)
