@@ -28,8 +28,10 @@ def order():
                                  realization_date='2020-08-10', product=product, visit=visit)
     return order
 
+
 @pytest.fixture
 def user():
     user = User.objects.create_superuser(username='Testowy', password='Testowe123!')
     user.save()
     return user
+

@@ -18,4 +18,13 @@ class TestUrls:
         response = c.get('/home/')
         assert response.status_code == 302
 
+    @pytest.mark.django_db
+    def test_product_create(self):
+        c=Client()
+        c.login(username='Testowy', password='Testowe123')
+        response = c.post('/add_product/', {'product_name': 'Nowy', 'description': 'Nowy opis',
+                                           'cost_of_production': '450', 'selling_net_price': '1990',
+                                           'category_id': '1', 'quantity': '3', 'unit':'szt.'})
+        assert response.status_code == 302
+
 
