@@ -1,6 +1,6 @@
 import pytest
 from django.contrib.auth.models import User
-from django.test import Client
+from django.test import Client, SimpleTestCase
 from wedding_products.models import Visit, Product, Category, Order
 
 
@@ -62,3 +62,11 @@ class TestUrls:
         assert response.status_code == 302
 
 
+    @pytest.mark.django_db
+    def test_delete_product_url(self, product):
+        c = Client()
+        c.login(username='Testowy', password='Testowe123')
+        response = c.get('/delete_product/<pk>', {'pk':product.id})
+
+        assert response.status_code == 302
+        SimpleTestCase().assertRedirects(response, '/delete_product/<pk>', status_code=302)
