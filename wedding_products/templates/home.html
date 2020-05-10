@@ -54,7 +54,11 @@
 {% endblock %}
 {% block content %}
     <div style="margin: 2% auto">
+    {% if user.first_name %}
+    <h4 style="font-weight: bold">Witaj {{ user.first_name }} :)</h4>
+        {% else %}
     <h4 style="font-weight: bold">Witaj {{ user.username }} :)</h4>
+    {% endif %}
     </div>
 {% endblock %}
 </div>
