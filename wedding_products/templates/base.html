@@ -4,42 +4,51 @@
 {% bootstrap_css %}
 <html>
 <head>
-{% block head %}
-    {% block style %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block head %}
+        {% block style %}
+            <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        {% endblock %}
+        <title>{% block title %} Safo management {% endblock %}</title>
     {% endblock %}
-    <title>{% block title %} My company website {% endblock %}</title>
-{% endblock %}
 </head>
 <body>
+<header class="navbar-expand">
+    <a class="navbar-brand" href="https://safo-salon.pl" style="box-sizing: border-box; display: inline">
+        <img src="{% static "wedding_products/logo.png" %}" alt="logo" width="20%" style="margin-left: 40%;">
+    </a>
+</header>
+<div class=".container" style="margin-top: 2%; text-align: center">
     {% block logo %}
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-            <img class="logo" src="{% static "wedding_products/logo.png" %}" alt="logo"/>
     {% endblock %}
-{% block buttons %}
-{% endblock %}
-{% block content %}
-    <h4 style="padding-top: 2%; padding-bottom: 2%; font-weight: bold">Dostęp do serwisu wymaga zalogowania się :)</h4>
-    <div class="form">
-        <form action="" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Zaloguj się">
-        </form>
-    </div>
-{% endblock %}
-    <div>
-    {% if response %}
-    {{ response }}
-    {% endif %}
-    </div>
-    <div class="card-footer text-muted" style="background-color: #d4c1a9; bottom:0; border-radius: 15px">
-            © Created by <a href="https://github.com/Bocian19">Łukasz Bocian</a>
-    </div>
-            </div>
+    {% block buttons %}
+    {% endblock %}
+    {% block content %}
+
+        <h4 style="padding-top: 2%; padding-bottom: 2%; font-weight: bold">Dostęp do serwisu wymaga zalogowania się
+            :)</h4>
+        <div class="form">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <input type="submit" value="Zaloguj się" style="background-color: antiquewhite">
+            </form>
         </div>
+
+    {% endblock %}
+    <div>
+        {% if response %}
+            {{ response }}
+        {% endif %}
+    </div>
 </div>
+
 </body>
 </html>
