@@ -9,10 +9,11 @@
             <link rel="stylesheet" href="{% static 'css/style.css' %}">
         {% endblock %}
         <title>{% block title %} Safo management {% endblock %}</title>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"></script>
     {% endblock %}
 </head>
 <body>
-<header class="navbar-expand">
+<header class="navbar-expand" id="logo" style="display: none; margin-top: 3%">
     <a class="navbar-brand" href="https://safo-salon.pl" style="box-sizing: border-box; display: inline">
         <img src="{% static "wedding_products/logo.png" %}" alt="logo" width="20%" style="margin-left: 40%;">
     </a>
@@ -24,7 +25,7 @@
     {% endblock %}
     {% block content %}
 
-        <h4 style="padding-top: 2%; padding-bottom: 2%; font-weight: bold">Dostęp do serwisu wymaga zalogowania się
+        <h4 style="padding-top: 2%; padding-bottom: 2%; font-weight: bold; font-family: KacstDecorative">Dostęp do serwisu wymaga zalogowania się
             :)</h4>
         <div class="form">
             <form action="" method="post">
@@ -51,4 +52,5 @@
 </div>
 
 </body>
+<script type="text/javascript" src="../static/js/app.js"></script>
 </html>
