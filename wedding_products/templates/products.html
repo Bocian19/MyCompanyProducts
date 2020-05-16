@@ -3,24 +3,25 @@
 {% block content %}
 <div class="container-fluid">
 {% if user.is_superuser %}
+
 <table class="table table-sm">
      <thead class="thead-dark">
-     <tr>
+     <tr style="font-size: 14px">
     <th style="text-align: center">Nazwa</th><th>Ilość</th><th>Jedn.</th><th>Cena zakupu netto/pln</th><th>Wartość sumaryczna</th>
          <th>Cena sprzedaży netto/pln</th><th>Cena sprzedaży brutto/pln</th><th>Foto</th><th></th><th></th>
      </tr>
      </thead>
     {% for product in products %}
-    <tbody style="text-align: center">
-        <tr style="height: 30px; "><td style="white-space: nowrap"><a href="/product/{{ product.id }}">{{ product.product_name }}</a> </td><td>{{ product.quantity }}</td><td>{{ product.unit }}</td>
+    <tbody style="text-align: center; font-size: 14px">
+        <tr style="height: 20px; "><td style="white-space: nowrap"><a href="/product/{{ product.id }}">{{ product.product_name }}</a> </td><td>{{ product.quantity }}</td><td>{{ product.unit }}</td>
                 <td>{{ product.cost_of_production }}</td><td>{{ product.final_cost }}</td><td>{{ product.selling_net_price }}</td><td>{{ product.price_for_the_clients|floatformat:"0"}}</td>
             {% if product.photo %}
             <td><img style=max-width:30%; src="{{ product.photo.url }}" class="img-thumbnail" alt="suknia">
                 {% else %}
                 <td></td>
             {% endif %}
-            <td><a class="btn btn-primary btn-sm" href="/update_product/{{ product.id }}" role="button">Edytuj produkt</a></td>
-            <td><a class="btn btn-danger btn-sm" href="/delete_product/{{ product.id }}" role="button">Usuń produkt</a></td>
+            <td><a class="btn btn-primary btn-sm" href="/update_product/{{ product.id }}" role="button">Edytuj</a></td>
+            <td><a class="btn btn-danger btn-sm" href="/delete_product/{{ product.id }}" role="button">Usuń</a></td>
             </tr>
     {% endfor %}
      </tbody>

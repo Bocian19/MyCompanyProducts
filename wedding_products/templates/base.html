@@ -3,29 +3,27 @@
 {% load bootstrap4 %}
 {% bootstrap_css %}
 <html>
-<head>
-    {% block head %}
-        {% block style %}
-            <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        {% endblock %}
+{% block head %}
+    <head>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <title>{% block title %} Safo management {% endblock %}</title>
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"></script>
-    {% endblock %}
-</head>
+    </head>
+{% endblock %}
 <body>
-<header class="navbar-expand" id="logo" style="display: none; margin-top: 3%">
-    <a class="navbar-brand" href="https://safo-salon.pl" style="box-sizing: border-box; display: inline">
-        <img src="{% static "wedding_products/logo.png" %}" alt="logo" width="20%" style="margin-left: 40%;">
-    </a>
-</header>
-<div class=".container" style="margin-top: 2%; text-align: center">
-    {% block logo %}
+<div class=".container" style="text-align: center">
+    {% block base_logo %}
+        <header class="navbar-expand" id="logo" style="display: none; margin-top: 1%">
+            <a class="navbar-brand" href="https://safo-salon.pl" style="box-sizing: border-box; display: inline;">
+                <img src="{% static "wedding_products/logo.png" %}" alt="logo" width="20%">
+            </a>
+        </header>
     {% endblock %}
     {% block buttons %}
     {% endblock %}
     {% block content %}
-
-        <h4 style="padding-top: 2%; padding-bottom: 2%; font-weight: bold; font-family: KacstDecorative">Dostęp do serwisu wymaga zalogowania się
+        <h4 style="padding-top: 2%; padding-bottom: 2%; font-weight: bold; font-family: KacstDecorative">Dostęp do
+            serwisu wymaga zalogowania się
             :)</h4>
         <div class="form">
             <form action="" method="post">
@@ -42,15 +40,13 @@
                 <input type="submit" value="Zaloguj się" style="background-color: antiquewhite">
             </form>
         </div>
-
+        <div>
+            {% if response %}
+                {{ response }}
+            {% endif %}
+        </div>
     {% endblock %}
-    <div>
-        {% if response %}
-            {{ response }}
-        {% endif %}
-    </div>
 </div>
-
 </body>
 <script type="text/javascript" src="../static/js/app.js"></script>
 </html>
