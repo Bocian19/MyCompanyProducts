@@ -46,9 +46,9 @@
             <li class="nav-link">
                 {% if user.is_authenticated %}
                     {% if user.first_name %}
-                    Zalogowany jako: {{ user.first_name }} <a href={% url 'user-logout' %}>Wyloguj się</a>
+                    Zalogowany jako: {{ user.first_name }} <a href={% url 'user-logout' %}>Wyloguj&nbsp;się</a>
                         {% elif user.username %}
-                    Zalogowany jako: {{ user.username }} <a href={% url 'user-logout' %}>Wyloguj się</a>
+                    Zalogowany jako: {{ user.username }} <a href={% url 'user-logout' %}>Wyloguj&nbsp;się</a>
                 {% else %}
                     Niezalogowany
                 {% endif %}
