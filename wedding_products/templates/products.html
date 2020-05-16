@@ -1,5 +1,10 @@
 {% extends 'home.html' %}
-
+{% block search %}
+                <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Wpisz nazwę" aria-label="Search">
+    <button class="btn btn-sm btn-outline-secondary" type="submit">Szukaj</button>
+  </form>
+{% endblock %}
 {% block content %}
 <div class="container-fluid">
 {% if user.is_superuser %}
