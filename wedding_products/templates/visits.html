@@ -1,5 +1,4 @@
 {% extends 'home.html' %}
-<head>
     {% block head %}
         {# Include FontAwesome; required for icon display #}
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
@@ -16,7 +15,25 @@
         {{ form.media }}
         {% load bootstrap4 %}
         {% bootstrap_css %}
-        </head>
+            <link type="text/css" href='../static/fullcalendar-4.4.0/packages/core/main.css' rel='stylesheet' />
+    <link type="text/css" href='../static/fullcalendar-4.4.0/packages/daygrid/main.css' rel='stylesheet' />
+
+    <script src='../static/fullcalendar-4.4.0/packages/core/main.js'></script>
+    <script src='../static/fullcalendar-4.4.0/packages/daygrid/main.js'></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid' ]
+        });
+
+        calendar.render();
+      });
+
+    </script>
+
     {% endblock %}
 {% block search %}
     <form class="form-inline" method="post" name="Visit-search" action="">
@@ -27,7 +44,7 @@
     </form>
 {% endblock %}
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-sm" style="margin: 0 15%">
         <table class="table table-sm">
             <thead class="thead-dark">
             <tr style="text-align: center">
@@ -36,6 +53,8 @@
                 <th>Numer telefonu</th>
                 <th>Data i godzina wizyty</th>
                 <th>ID</th>
+                <th></th>
+                <th></th>
                 <th></th>
             </tr>
             </thead>
@@ -51,12 +70,18 @@
                         wizytę</a></td>
                     <td><a class="btn btn-danger btn-sm" href="/delete_visits/{{ visit.id }}" role="button">Usuń
                         wiztę</a></td>
-                    <td><a class="btn btn-danger btn-sm" href="/add_order?visit_id={{ visit.id }}" role="button">Dodaj
+                    <td><a class="btn btn-success btn-sm" href="/add_order?visit_id={{ visit.id }}" role="button">Dodaj
                         zamówienie</a></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-        <a class="btn btn-success btn-xs" role="button" href="{% url 'add-visits' %}">Dodaj wizytę</a></div>
+        <a class="btn btn-success btn-xs" role="button" href="{% url 'add-visits' %}">Dodaj wizytę</a>
+
     </div>
+  <div style="margin: 0 15%" id='calendar'></div>
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="../static/fullcalendar-4.4.0/packages/core/main.js"></script>
 {% endblock %}

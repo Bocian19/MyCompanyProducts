@@ -66,7 +66,7 @@ class Order(models.Model):
     waist = models.FloatField(blank=True, verbose_name="Talia")
     hips = models.FloatField(blank=True, verbose_name="Obwód bioder")
     breast = models.FloatField(blank=True, verbose_name="Obwód piersi")
-    additional_info = models.CharField(max_length=200, blank=True, verbose_name="Dodatkowe informacje")
+    additional_info = models.TextField(max_length=200, blank=True, verbose_name="Dodatkowe informacje")
     order_date = models.DateField(blank=True, verbose_name="Data zamówienia")
     realization_date = models.DateField(blank=True, verbose_name="Data realizacji")
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
