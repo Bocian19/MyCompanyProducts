@@ -1,5 +1,7 @@
 {% extends 'home.html' %}
+{% load static %}
     {% block head %}
+
         {# Include FontAwesome; required for icon display #}
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
 
@@ -17,16 +19,24 @@
         {% bootstrap_css %}
             <link type="text/css" href='../static/fullcalendar-4.4.0/packages/core/main.css' rel='stylesheet' />
     <link type="text/css" href='../static/fullcalendar-4.4.0/packages/daygrid/main.css' rel='stylesheet' />
+    <link type="text/css" href='../static/fullcalendar-4.4.0/packages/timegrid/main.css' rel='stylesheet' />
+    <link type="text/css" href='../static/fullcalendar-4.4.0/packages/list/main.css' rel='stylesheet' />
 
     <script src='../static/fullcalendar-4.4.0/packages/core/main.js'></script>
     <script src='../static/fullcalendar-4.4.0/packages/daygrid/main.js'></script>
+    <script src='../static/fullcalendar-4.4.0/packages/timegrid/main.js'></script>
+    <script src='../static/fullcalendar-4.4.0/packages/list/main.js'></script>
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: [ 'dayGrid' ]
+          plugins: [ 'dayGrid', 'timeGrid', 'list' ],
+            hiddenDays: [0,],
+            locale: 'pl',
+            columnHeaderFormat: { weekday: 'long' },
+
         });
 
         calendar.render();
@@ -51,8 +61,8 @@
                 <th>Imię</th>
                 <th>Nazwisko</th>
                 <th>Numer telefonu</th>
-                <th>Data i godzina wizyty</th>
-                <th>ID</th>
+                <th>Data wizyty</th>
+                <th>Godzina wizyty</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -60,12 +70,12 @@
             </thead>
             {% for visit in visits %}
                 <tbody style="text-align: center">
-                <tr style="height: 30px; ">
-                    <td> {{ visit.first_name }}</td>
-                    <td>{{ visit.last_name }}</td>
+                <tr class="client_data" style="height: 30px; ">
+                    <td id="first_name"> {{ visit.first_name }}</td>
+                    <td id="last_name">{{ visit.last_name }}</td>
                     <td>{{ visit.telephone_number }}</td>
-                    <td>{{ visit.visit_date }}</td>
-                    <td>{{ visit.id }}</td>
+                    <td id="visit_date">{{ visit.visit_date|date:"Y-m-d"}}</td>
+                    <td id="visit_hour">{{ visit.visit_date|date:"h:i"}}</td>
                     <td><a class="btn btn-primary btn-sm" href="/update_visits/{{ visit.id }}" role="button">Edytuj
                         wizytę</a></td>
                     <td><a class="btn btn-danger btn-sm" href="/delete_visits/{{ visit.id }}" role="button">Usuń
@@ -78,10 +88,11 @@
         </table>
         <a class="btn btn-success btn-xs" role="button" href="{% url 'add-visits' %}">Dodaj wizytę</a>
 
-    </div>
-  <div style="margin: 0 15%" id='calendar'></div>
 
+  <div style="margin: 0 1%" id='calendar'></div>
+  </div>
 {% endblock %}
 {% block js %}
     <script type="text/javascript" src="../static/fullcalendar-4.4.0/packages/core/main.js"></script>
+    <script type="text/javascript" src="../static/js/app.js"></script>
 {% endblock %}
