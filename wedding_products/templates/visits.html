@@ -53,6 +53,8 @@
         <button class="btn btn-sm btn-outline-secondary" type="submit">Szukaj</button>
     </form>
 {% endblock %}
+{% block base_logo %}
+{% endblock %}
 {% block content %}
     <div class="container-sm" style="margin: 0 15%">
         <table class="table table-sm">
@@ -70,12 +72,13 @@
             </thead>
             {% for visit in visits %}
                 <tbody style="text-align: center">
-                <tr class="client_data" style="height: 30px; ">
+                <tr class="client_data" style="height: 30px" data-date="{{ visit.visit_date|date:"Y-m-d" }}"
+                    data-first_name="{{ visit.first_name }}" data-hour="{{ visit.visit_date|date:"h:i" }}">
                     <td id="first_name"> {{ visit.first_name }}</td>
                     <td id="last_name">{{ visit.last_name }}</td>
                     <td>{{ visit.telephone_number }}</td>
-                    <td id="visit_date">{{ visit.visit_date|date:"Y-m-d"}}</td>
-                    <td id="visit_hour">{{ visit.visit_date|date:"h:i"}}</td>
+                    <td id="visit_date">{{ visit.visit_date|date:"Y-m-d" }}</td>
+                    <td id="visit_hour">{{ visit.visit_date|date:"h:i" }}</td>
                     <td><a class="btn btn-primary btn-sm" href="/update_visits/{{ visit.id }}" role="button">Edytuj
                         wizytę</a></td>
                     <td><a class="btn btn-danger btn-sm" href="/delete_visits/{{ visit.id }}" role="button">Usuń
