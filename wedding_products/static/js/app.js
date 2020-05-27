@@ -17,16 +17,16 @@ document.addEventListener('DOMContentLoaded', function go() {
                         myCell.innerHTML += visitRow.dataset.first_name + " " + visitRow.dataset.hour + "</br>";
                     } else if (calendarDate.classList.contains('fc-mon')) {
                         const myCell = calendarDate.parentElement.parentElement.nextElementSibling.firstChild.childNodes[0];
-                        myCell.innerHTML += visitRow.dataset.first_name + " " + visitRow.dataset.hour;
+                        myCell.innerHTML += visitRow.dataset.first_name + " " + visitRow.dataset.hour + "</br>";
                     } else if (calendarDate.classList.contains('fc-tue')) {
                         const myCell = calendarDate.parentElement.parentElement.nextElementSibling.firstChild.childNodes[1];
-                        myCell.innerHTML += visitRow.dataset.first_name + " " + visitRow.dataset.hour;
+                        myCell.innerHTML += visitRow.dataset.first_name + " " + visitRow.dataset.hour + "</br>";
                     } else if (calendarDate.classList.contains('fc-wed')) {
                         const myCell = calendarDate.parentElement.parentElement.nextElementSibling.firstChild.childNodes[2];
-                        myCell.innerHTML += visitRow.dataset.first_name + " " + visitRow.dataset.hour;
+                        myCell.innerHTML += visitRow.dataset.first_name + " " + visitRow.dataset.hour + "</br>";
                     } else if (calendarDate.classList.contains('fc-thu')) {
                         const myCell = calendarDate.parentElement.parentElement.nextElementSibling.firstChild.childNodes[3];
-                        myCell.innerHTML += visitRow.dataset.first_name + " " + visitRow.dataset.hour;
+                        myCell.innerHTML += visitRow.dataset.first_name + " " + visitRow.dataset.hour + "</br>";
                     }
                 }
             });
