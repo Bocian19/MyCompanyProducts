@@ -39,6 +39,17 @@ document.addEventListener('DOMContentLoaded', function go() {
             go();
         })
     })
+    const tableRows = document.getElementById('table_rows ');
+ const unhideButton = document.getElementById('hide');
+    unhideButton.addEventListener('click', function (e) {
+        // e.preventDefault()
+        tableRows.classList.toggle('hidden');
+        if (unhideButton.innerHTML === "Rozwiń tabelę") {
+            unhideButton.innerHTML = "Zwiń tabelę";
+        } else {
+            unhideButton.innerHTML = "Rozwiń tabelę"
+        }
 
+    })
 });
 
