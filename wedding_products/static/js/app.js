@@ -49,7 +49,10 @@ document.addEventListener('DOMContentLoaded', function go() {
         } else {
             unhideButton.innerHTML = "Rozwiń tabelę"
         }
-
     })
+
+    const calendarBody = document.getElementsByClassName('fc-body');
+    console.log(calendarBody[0]);
+    calendarBody[0].classList.add('calendarStyle');
 });
 

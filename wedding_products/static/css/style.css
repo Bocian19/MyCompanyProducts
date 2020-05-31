@@ -20,3 +20,7 @@ body {
 .visible {
     display: block;
 }
+
+.calendarStyle {
+    background-color: floralwhite;
+}
