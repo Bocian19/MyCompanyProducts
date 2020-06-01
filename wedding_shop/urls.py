@@ -42,4 +42,5 @@ urlpatterns = [
     path('update_visits/<pk>', VisitUpdate.as_view(), name='update-visits'),
     path('delete_visits/<pk>', VisitDelete.as_view(), name='delete-visits'),
 
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

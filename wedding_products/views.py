@@ -58,7 +58,7 @@ class ProductsView(LoginRequiredMixin, View):
     def get(self, request):
 
         products = Product.objects.annotate(
-            final_cost=F('quantity') * F('cost_of_production'))
+            final_cost=F('quantity') * F('cost_of_production')).order_by('selling_net_price')
         summary = products.aggregate(Sum('final_cost'))
         return render(request, 'products.html', {"products": products, "summary": summary})
 
